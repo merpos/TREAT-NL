@@ -1,5 +1,4 @@
 TREAT- NL HDS conversion code
-Author: Merel Postema
 
 Description:
 This folder contains all the R code needed to convert raw Castor CSV exports into a harmonized dataset (HDS).
