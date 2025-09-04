@@ -30,19 +30,19 @@ df_dlqi <- df_dlqi |>
 rm(currentdate_cols)
 
 # HDS - dlqi and dlqitype -------------------------------------------------
-dlqi_cols <- names(df_dlqi)[grepl("^CDLQI_|^DLQI", names(df_dlqi))]
-dlqi_cols_c <- dlqi_cols[grep('^DLQI', dlqi_cols)] # type = dlqi
-dlqi_cols_d <- dlqi_cols[grep('^CDLQI', dlqi_cols)] # type = clqi
+dlqi_cols <- names(df_dlqi)[grepl("^IDLQI_.._score|^DLQI_.._score", names(df_dlqi))]
+dlqi_cols_d <- dlqi_cols[grep('^DLQI', dlqi_cols)] # type = dlqi
+dlqi_cols_i <- dlqi_cols[grep('^IDLQI', dlqi_cols)] # type = clqi
 
 df_dlqi <- df_dlqi |>
-  mutate(across(all_of(dlqi_cols), ~as.integer(.x))) |> 
-  rowwise() |> 
-  mutate(dlqi_c = do.call(coalesce, as.list(c_across(all_of(dlqi_cols_c)))),
-         dlqi_d = do.call(coalesce,as.list(c_across(all_of(dlqi_cols_d)))),
-  ) |> 
+  mutate(across(all_of(dlqi_cols), ~as.integer(.x))) |>
+  rowwise() |>
+  mutate(dlqi_d = do.call(coalesce, as.list(c_across(all_of(dlqi_cols_d)))),
+         dlqi_i = do.call(coalesce,as.list(c_across(all_of(dlqi_cols_i)))),
+  ) |>
   ungroup()
 
-df_dlqi <- pivot_longer(df_dlqi, c("dlqi_c","dlqi_d"), names_to = "dlqitype", values_to = "dlqi")
+df_dlqi <- pivot_longer(df_dlqi, c("dlqi_i","dlqi_d"), names_to = "dlqitype", values_to = "dlqi")
 
 df_dlqi <- df_dlqi |> 
   mutate(dlqitype = case_when(dlqitype == "dlqi_d" ~ 1,

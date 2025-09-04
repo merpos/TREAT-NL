@@ -7,6 +7,10 @@
 ## ============================================================================
 rm(list=ls()[grep("export_date|hds_visit|ids2include", ls(), invert = TRUE)])
 
+export_date_full <- paste(c(substring(export_date, 1,4),
+                            substring(export_date, 5,6),
+                            substring(export_date, 7,8)), collapse="-", sep="")
+
 cat("--------------- hds.phototherapy ---------------\n")
 
 # Load data ---------------------------------------------------------------
@@ -25,7 +29,6 @@ for (f in files) {
 }
 
 # HDS - treatment ---------------------------------------------------------
-# Note: If patient matches both curr and past therapy, only the first occurance will be matched.
 hds_pt <- df_pt |>
   mutate(treatment = case_when((curr_photother_type == 1 | past_photother_type == 1) ~ 3,
                                (curr_photother_type == 2 | past_photother_type == 2) ~ 4,
@@ -75,7 +78,15 @@ hds_pt <- hds_pt |>
   mutate(treatment = as.integer(treatment),
          ongoing = as.integer(ongoing)
          ) |> 
-  rename(anonymisedID = Participant.Id)
+  rename(anonymisedID = Participant.Id) |> 
+  mutate(
+    startdate = if_else(as.Date(startdate) > as.Date("2900-01-01"),
+                        NA_character_,
+                        startdate),
+    enddate   = if_else(as.Date(enddate) > as.Date("2900-01-01"),
+                        NA_character_,
+                        enddate)
+  )
 
 # save HDS ----------------------------------------------------------------
 write.csv(hds_pt,

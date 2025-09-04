@@ -209,6 +209,6 @@ hds_pthx_new <- hds_pthx_new |> mutate(
 
 # save HDS ----------------------------------------------------------------
 write.csv(hds_pthx_new,
-          paste0("../data/", export_date, "/hds/hds.systhemictherapyhx.csv"),
+          paste0("../data/", export_date, "/hds/hds.systemictherapyhx.csv"),
           row.names = FALSE
 )

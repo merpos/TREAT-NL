@@ -21,7 +21,7 @@ if (file.exists(my_lib_path) == FALSE) {
 }
 .libPaths(my_lib_path)
 
-packages <- c("dplyr", "tidyr")
+packages <- c("dplyr", "tidyr", "purrr")
 install.packages(setdiff(packages, rownames(installed.packages())))
 load_pack <- lapply(packages, library, character.only = TRUE)
 
@@ -45,7 +45,7 @@ source("hds-topicaltherapy.R", echo=FALSE)
 source("hds-poem.R", echo=FALSE)
 source("hds-nrs.R", echo=FALSE)
 # depends on hds_visit (defined in hds-visits.R)
-source("hds-systemictherapyhx.R", echo=FALSE) 
+source("hds-systemictherapyhx.R", echo=FALSE) # purrr package required
 source("hds-iga.R", echo=FALSE) 
 source("hds-easi.R", echo=FALSE) 
 
