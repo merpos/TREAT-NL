@@ -13,33 +13,13 @@ cat("--------------- hds.topicaltherapy ---------------\n")
 df <- read.csv(paste0("../data/", export_date, "/castor-export/TREAT_NL_register_2.0_Current_topical_AE_treatment_export_",
                       export_date, ".csv"), sep = ";")
 
-#df_merged <- df |> full_join(hds_visit[,c("Participant.Id","visitdate")], join_by(Participant.Id), relationship = "many-to-many") |> 
-#  distinct()
-
 # Create HDS --------------------------------------------------------------
 hds_top <- df |> 
   filter(Participant.Id %in% ids2include) |> 
-  #select(c(Participant.Id, top_treat_type, visitdate))
   select(c(Participant.Id, top_treat_type, Repeating.Data.Creation.Date)) |> 
   mutate(Repeating.Data.Creation.Date = as.Date(Repeating.Data.Creation.Date, format = "%d-%m-%Y"))
-  
-  # Constraint: startdate and enddate are not collected.
 
 # HDS - treatment ---------------------------------------------------------
-
-# # TREAT-NL:
-# 1=Corticosteroids
-# 2=Calcineurin inhibitors
-# 3=Tar-ointments
-# 4=Crisaborole
-# 9=Other
-
-# # HDS:
-# 1	topical corticosteroid
-# 2	calcineurin inhibitor
-# 98	other
-# 99	unknown
-
 hds_top <- hds_top |> mutate(
   treatment = case_when(
     top_treat_type == 1 ~ 1,
@@ -97,6 +77,6 @@ hds_top <- hds_top |>
 
 # save HDS ----------------------------------------------------------------
 write.csv(hds_top,
-          paste0("../data/", export_date, "/hds/hds.top.csv"),
+          paste0("../data/", export_date, "/hds/hds.topicaltherapy.csv"),
           row.names = FALSE
 )
