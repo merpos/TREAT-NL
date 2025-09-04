@@ -70,10 +70,11 @@ if(nrow(subset(hds_nrs, constraint_ok == 0))!=0){
 }
 
 hds_nrs <- hds_nrs |>
-  select(c(nrsdate, nrs))|> 
+  select(c(Castor.Participant.ID, nrsdate, nrs))|> 
   distinct() |> 
   mutate(nrsdate = as.character(nrsdate)) |> 
-  distinct()
+  distinct() |> 
+  rename(anonymisedID = Castor.Participant.ID)
 
 # save HDS ----------------------------------------------------------------
 write.csv(hds_nrs,
