@@ -10,7 +10,7 @@ rm(list=ls()[grep("export_date|export_date_full|hds_visit|ids2include", ls(), in
 cat("--------------- hds.dlqi ---------------\n")
 
 # Load data ---------------------------------------------------------------
-files_dlqi <- list.files(paste0("../data/20250722/castor-export/"))
+files_dlqi <- list.files(paste0("../data/",export_date,"/castor-export/"))
 files_dlqi <- files_dlqi[grep('_Volwassen_|_Adult_|_Kind_|_Child_', files_dlqi)]
 
 df_dlqi <- files_dlqi |> 
