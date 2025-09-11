@@ -1,0 +1,58 @@
+README
+================
+2025-09-02
+
+## TREAT- NL HDS conversion code
+
+# Description:
+
+This repository contains all the R code needed to convert raw Castor CSV
+exports from the [TREAT-NL](https://treatregister.nl/) dataset into a
+harmonized dataset (HDS), and international effort by the TREAT Registry
+Taskforce to compare national datasets and enable pooled analyses.
+
+Input files: ~../data/\[export_date\]/castor-export/
+
+Output files: ~../data/\[export_date\]/hds/
+
+# Instructions:
+
+1)  Export data - Export your study data from Castor EDC into CSV format
+
+2)  Prepare folder structure
+
+- Create a new folder named after the export date (format: yyyymmdd)
+- Inside this folder, create:
+- castor-export -\> store the raw Castor CSV files here
+- hds -\> output files will be stored here.
+  - within this folder, create two other folders:
+    - without-proms-data
+    - with-proms-data
+
+3)  Open R project
+
+- Open RStudio and load the project d2t-scripts.Rproj via File \> Open
+  Project
+
+4)  Open main script
+
+- Open the script 01-main-script-hds.R
+
+5)  Adjust parameters
+
+- Update the export_date variable (line 10)
+- Adjust the library paths if necessary (lines 11-16)
+
+6)  Run the script
+
+- Click the Source button, or
+- Select all the code and click Run
+
+7)  Output and logs
+
+- Processed files will be saved in the hds folder:
+  ~../data/\[export_date\]/hds/
+- A log file will be generated in the scripts folder:
+  hds_output_log\_\[yyyymmdd\].txt
+
+## 
