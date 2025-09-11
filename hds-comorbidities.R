@@ -5,7 +5,7 @@
 ## project:     TREAT-NL
 ## description: create harmonized dataset (hds) file for comorbidities
 ## ============================================================================
-rm(list=ls()[grep("export_date|hds_visit|ids2include", ls(), invert = TRUE)])
+rm(list=ls()[grep("export_date|export_date_full|hds_visit|ids2include", ls(), invert = TRUE)])
 
 cat("--------------- hds.comorbidities ---------------\n")
 
@@ -85,6 +85,6 @@ hds_comorb <- hds_comorb |>
 
 # save HDS ----------------------------------------------------------------
 write.csv(hds_comorb,
-          paste0("../data/", export_date, "/hds/hds.comorbidities.csv"),
+          paste0("../data/", export_date, "/hds/without-proms-data/hds.comorbidities.csv"),
           row.names = FALSE
 )

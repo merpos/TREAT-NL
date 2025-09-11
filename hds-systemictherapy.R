@@ -5,11 +5,7 @@
 ## project:     TREAT-NL
 ## description: create harmonized dataset (hds) file for systemictherapy
 ## ============================================================================
-rm(list=ls()[grep("export_date|ids2include|hds_visit", ls(), invert = TRUE)])
-
-export_date_full <- paste(c(substring(export_date, 1,4),
-                            substring(export_date, 5,6),
-                            substring(export_date, 7,8)), collapse="-", sep="")
+rm(list=ls()[grep("export_date|export_date_full|ids2include|hds_visit", ls(), invert = TRUE)])
 
 cat("--------------- hds.systemictherapy ---------------\n")
 
@@ -445,6 +441,6 @@ hds_syst <- hds_syst |>
 
 # save HDS ----------------------------------------------------------------
 write.csv(hds_syst,
-          paste0("../data/", export_date, "/hds/hds.systemictherapy.csv"),
+          paste0("../data/", export_date, "/hds/without-proms-data/hds.systemictherapy.csv"),
           row.names = FALSE
 )

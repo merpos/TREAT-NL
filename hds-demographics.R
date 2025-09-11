@@ -5,7 +5,7 @@
 ## project:     TREAT-NL
 ## description: create harmonized dataset (hds) file for demographics
 ## ============================================================================
-rm(list=ls()[grep("export_date|ids2include|hds_visit", ls(), invert = TRUE)])
+rm(list=ls()[grep("export_date|export_date_full|ids2include|hds_visit", ls(), invert = TRUE)])
 
 cat("--------------- hds.demographics ---------------\n")
 
@@ -237,6 +237,6 @@ hds_dem <- hds_dem |>
 
 # save HDS ----------------------------------------------------------------
 write.csv(hds_dem,
-  paste0("../data/", export_date, "/hds/hds.demographics.csv"),
+  paste0("../data/", export_date, "/hds/without-proms-data/hds.demographics.csv"),
   row.names = FALSE
 )

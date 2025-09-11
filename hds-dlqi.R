@@ -5,7 +5,7 @@
 ## project:     TREAT-NL
 ## description: create harmonized dataset (hds) file for dlqi
 ## ============================================================================
-rm(list=ls()[grep("export_date|hds_visit|ids2include", ls(), invert = TRUE)])
+rm(list=ls()[grep("export_date|export_date_full|hds_visit|ids2include", ls(), invert = TRUE)])
 
 cat("--------------- hds.dlqi ---------------\n")
 
@@ -56,10 +56,11 @@ hds_dlqi <- df_dlqi |>
 hds_dlqi <- hds_dlqi |> 
   select(c(Castor.Participant.ID, dlqidate, dlqi, dlqitype)) |> 
   mutate(dlqidate = as.character(as.Date(dlqidate, format = "%d-%m-%Y")),
-         dlqitype = as.integer(dlqitype))
+         dlqitype = as.integer(dlqitype)) |> 
+  rename(anonymisedID = Castor.Participant.ID)
 
 # save HDS ----------------------------------------------------------------
 write.csv(hds_dlqi,
-          paste0("../data/", export_date, "/hds/hds.dlqi.csv"),
+          paste0("../data/", export_date, "/hds/without-proms-data/hds.dlqi.csv"),
           row.names = FALSE
 )
