@@ -6,8 +6,6 @@
 ## description: check HDS output
 ## ============================================================================
 
-
-
 # visit -------------------------------------------------------------------
 df_visit <- read.csv(file = paste0("../data/", export_date, "/hds/hds.visits.csv"))
 summary(as.Date(df_visit$visitdate))
@@ -30,7 +28,7 @@ df_syst |> mutate(any_empty = if_any(everything(), ~.x == "")) |> pull(any_empty
 table(df_syst$treatment)
 table(df_syst$mainad)
 table(df_syst$concomitant)
-summary(df_syst$dosage) # is 2000 mg a realistic value?
+summary(df_syst$dosage) 
 table(df_syst$frequency)
 summary(as.Date(df_syst$startdate))
 table(is.na(df_syst$ongoing))
@@ -42,7 +40,7 @@ table(df_syst$stopreason)
 df_dlqi <- read.csv(file = paste0("../data/", export_date, "/hds/hds.dlqi.csv"))
 str(df_dlqi)
 df_dlqi |> mutate(any_empty = if_any(everything(), ~.x == "")) |> pull(any_empty) |> table()
-summary(df_dlqi$dlqi) # 0 tot 3 --> should be 0 to 30 !!
+summary(df_dlqi$dlqi) 
 table(df_dlqi$dlqitype)
 
 # comorbidities -----------------------------------------------------------
@@ -63,9 +61,8 @@ table(df_poem$poemwho)
 df_nrs <- read.csv(file = paste0("../data/", export_date, "/hds/hds.nrs.csv"))
 str(df_nrs)
 df_nrs |> mutate(any_empty = if_any(everything(), ~.x == "")) |> pull(any_empty) |> table()
-summary(as.Date(df_nrs$nrsdate)) # er komt een 3023 in voor, deze moet eruit gefilterd.
-df_nrs[which(df_nrs$nrsdate > "2030-01-01"),] # AUMCU18 heeft een NRS datum van 3023!
-
+summary(as.Date(df_nrs$nrsdate)) 
+df_nrs[which(df_nrs$nrsdate > "2030-01-01"),] 
 
 # phototherapy ------------------------------------------------------------
 df_pt <- read.csv(file = paste0("../data/", export_date, "/hds/hds.phototherapy.csv"))
@@ -75,7 +72,6 @@ table(df_pt$treatment)
 summary(as.Date(df_pt$startdate))
 table(df_pt$ongoing)
 summary(as.Date(df_pt$enddate)) 
-
 
 # systemictherapyhx -------------------------------------------------------
 df_sth <- read.csv(file = paste0("../data/", export_date, "/hds/hds.systemictherapyhx.csv"))
@@ -89,7 +85,6 @@ str(df_iga)
 df_iga |> mutate(any_empty = if_any(everything(), ~.x == "")) |> pull(any_empty) |> table()
 summary(df_iga$iga) # 0- 4 is OK
 summary(as.Date(df_iga$igadate))
-
 
 # easi --------------------------------------------------------------------
 df_easi <- read.csv(file = paste0("../data/", export_date, "/hds/hds.easi.csv"))
