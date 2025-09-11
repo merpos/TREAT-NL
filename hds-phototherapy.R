@@ -5,7 +5,7 @@
 ## project:     TREAT-NL
 ## description: create harmonized dataset (hds) file for phototherapy
 ## ============================================================================
-rm(list=ls()[grep("export_date|hds_visit|ids2include", ls(), invert = TRUE)])
+rm(list=ls()[grep("export_date|export_date_full|hds_visit|ids2include", ls(), invert = TRUE)])
 
 export_date_full <- paste(c(substring(export_date, 1,4),
                             substring(export_date, 5,6),
@@ -90,6 +90,6 @@ hds_pt <- hds_pt |>
 
 # save HDS ----------------------------------------------------------------
 write.csv(hds_pt,
-          paste0("../data/", export_date, "/hds/hds.phototherapy.csv"),
+          paste0("../data/", export_date, "/hds/without-proms-data/hds.phototherapy.csv"),
           row.names = FALSE
 )

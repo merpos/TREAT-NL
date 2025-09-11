@@ -5,7 +5,7 @@
 ## project:     TREAT-NL
 ## description: create harmonized dataset (hds) file for easi
 ## ============================================================================
-rm(list=ls()[grep("export_date|ids2include|hds_visit", ls(), invert = TRUE)])
+rm(list=ls()[grep("export_date|export_date_full|ids2include|hds_visit", ls(), invert = TRUE)])
 
 cat("--------------- hds.easi ---------------\n")
 
@@ -36,6 +36,6 @@ hds_easi <-hds_easi |>
 
 # save HDS ----------------------------------------------------------------
 write.csv(hds_easi,
-          paste0("../data/", export_date, "/hds/hds.easi.csv"),
+          paste0("../data/", export_date, "/hds/without-proms-data/hds.easi.csv"),
           row.names = FALSE
 )

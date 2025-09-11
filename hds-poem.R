@@ -5,7 +5,7 @@
 ## project:     TREAT-NL
 ## description: create harmonized dataset (hds) file for poem
 ## ============================================================================
-rm(list=ls()[grep("export_date|hds_visit|ids2include", ls(), invert = TRUE)])
+rm(list=ls()[grep("export_date|export_date_full|hds_visit|ids2include", ls(), invert = TRUE)])
 
 cat("--------------- hds.poem ---------------\n")
 
@@ -69,7 +69,8 @@ if(nrow(subset(hds_poem, constraint_ok == 0))!=0){
 }
 
 hds_poem <- hds_poem |>
-  select(c(poemdate, poem, poemwho))|> 
+  rename(anonymisedID = Castor.Participant.ID) |> 
+  select(c(anonymisedID, poemdate, poem, poemwho))|> 
   distinct() |> 
   mutate(poemdate = as.character(poemdate), 
          poemwho = as.integer(poemwho)) |> 
@@ -77,6 +78,6 @@ hds_poem <- hds_poem |>
 
 # save HDS ----------------------------------------------------------------
 write.csv(hds_poem,
-          paste0("../data/", export_date, "/hds/hds.poem.csv"),
+          paste0("../data/", export_date, "/hds/without-proms-data/hds.poem.csv"),
           row.names = FALSE
 )

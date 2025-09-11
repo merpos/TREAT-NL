@@ -8,6 +8,9 @@
 
 # to be changed accordingly -----------------------------------------------
 export_date <- "20250722"
+export_date_full <- paste(c(substring(export_date, 1,4),
+                            substring(export_date, 5,6),
+                            substring(export_date, 7,8)), collapse="-", sep="")
 my_lib_path <-
   paste0(
     "C:/Users/P076169/Amsterdam UMC/MyRPackages/",
@@ -34,20 +37,26 @@ sink(file = log_file, append = TRUE, split = TRUE)
 options(warn = 1)
 # the below script should be run first. 
 source("hds-visits.R", echo=FALSE)
+
 # depends on ids2include (defined in hds-visits.R)
 source("hds-demographics.R", echo=FALSE) 
 source("hds-systemictherapy.R", echo=FALSE) 
 source("hds-dlqi.R", echo=FALSE) 
 source("hds-comorbidities.R", echo=FALSE) 
 source("hds-phototherapy.R", echo=FALSE)
-source("hds-topicaltherapy.R", echo=FALSE) 
+source("hds-topicaltherapy.R", echo=FALSE)
+
 # depends on ids2include and hds_visit (defined in hds-visits.R)
 source("hds-poem.R", echo=FALSE)
 source("hds-nrs.R", echo=FALSE)
+
 # depends on hds_visit (defined in hds-visits.R)
-source("hds-systemictherapyhx.R", echo=FALSE) # purrr package required
+source("hds-systemictherapyhx.R", echo=FALSE)  # purrr package required. export_date_full
 source("hds-iga.R", echo=FALSE) 
 source("hds-easi.R", echo=FALSE) 
+
+# depends on all scripts above (and should be run as last!)
+source("add-proms-data-to-hds.R", echo=FALSE) 
 
 cat("------------------ session info -----------------------")
 sessionInfo()

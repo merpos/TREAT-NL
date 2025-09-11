@@ -5,7 +5,7 @@
 ## project:     TREAT-NL
 ## description: create harmonized dataset (hds) file for nrs
 ## ============================================================================
-rm(list=ls()[grep("export_date|hds_visit|ids2include", ls(), invert = TRUE)])
+rm(list=ls()[grep("export_date|export_date_full|hds_visit|ids2include", ls(), invert = TRUE)])
 
 cat("--------------- hds.nrs ---------------\n")
 
@@ -78,6 +78,6 @@ hds_nrs <- hds_nrs |>
 
 # save HDS ----------------------------------------------------------------
 write.csv(hds_nrs,
-          paste0("../data/", export_date, "/hds/hds.nrs.csv"),
+          paste0("../data/", export_date, "/hds/without-proms-data/hds.nrs.csv"),
           row.names = FALSE
 )

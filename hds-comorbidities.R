@@ -5,7 +5,7 @@
 ## project:     TREAT-NL
 ## description: create harmonized dataset (hds) file for comorbidities
 ## ============================================================================
-rm(list=ls()[grep("export_date|hds_visit|ids2include", ls(), invert = TRUE)])
+rm(list=ls()[grep("export_date|export_date_full|hds_visit|ids2include", ls(), invert = TRUE)])
 
 cat("--------------- hds.comorbidities ---------------\n")
 
@@ -69,19 +69,13 @@ hds_comorb <- hds_comorb |>
   )
 
 # HDS - ongoing -----------------------------------------------------------
+# Constraint: 
+# information about the status of the comorbidity (ongoing yes/no)
+# is not available. Illness, malign and infect outcome are only filled in 
+# when adverse event, so not possible to derive ongoing status.
 
-hds_comorb <- hds_comorb |> 
-  mutate(
-    ongoing = case_when(
-      illness_outcome %in% c(1, 4) ~ 1,   
-      illness_outcome %in% c(2, 3) ~ 0,
-      malign_outcome %in% c(1, 4) ~ 1,    
-      malign_outcome == 2 ~ 0,
-      infect_outcome == 1 ~ 1,            
-      infect_outcome %in% c(3, 5) ~ 0,    
-      TRUE ~ NA_real_
-    )
-  )
+hds_comorb <- hds_comorb |>
+  mutate( ongoing = NA)
 
 # final adjustments -------------------------------------------------------
 hds_comorb <- hds_comorb |> 
@@ -91,6 +85,6 @@ hds_comorb <- hds_comorb |>
 
 # save HDS ----------------------------------------------------------------
 write.csv(hds_comorb,
-          paste0("../data/", export_date, "/hds/hds.comorbidities.csv"),
+          paste0("../data/", export_date, "/hds/without-proms-data/hds.comorbidities.csv"),
           row.names = FALSE
 )
