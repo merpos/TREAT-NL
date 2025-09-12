@@ -36,6 +36,6 @@ hds_iga <-hds_iga |>
 
 # save HDS ----------------------------------------------------------------
 write.csv(hds_iga,
-          paste0("../data/", export_date, "/hds/without-proms-data/hds.iga.csv"),
+          paste0("../data/", export_date, "/hds/hds.iga.csv"),
           row.names = FALSE
 )

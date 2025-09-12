@@ -17,11 +17,11 @@ cat("--------------- hds.systhemictherapyhx ---------------\n")
 
 
 # Create HDS --------------------------------------------------------------
-hds_pthx <- hds_visit |> select(Participant.Id, visitdate, contains("past_syst_ther_")) |> 
+hds_systhist <- hds_visit |> select(Participant.Id, visitdate, contains("past_syst_ther_")) |> 
   select(Participant.Id,, visitdate, matches("_type|_year_|_month_|_stopdt_|_stop_")) |> 
   select(!contains("stop_spec"))
 
-hds_pthx <- hds_pthx |>
+hds_systhist <- hds_systhist |>
   mutate(
     across(
       .cols = starts_with("past_syst_ther_year"),
@@ -81,8 +81,8 @@ for(trt in c(
   "inv" 
 )) {
   print(paste0("--------------", trt, "----------------------"))
- for( p in unique(hds_pthx$Participant.Id)){
-  hds_tmp <- hds_pthx |> 
+ for( p in unique(hds_systhist$Participant.Id)){
+  hds_tmp <- hds_systhist |> 
     select(Participant.Id, contains(trt, ignore.case = TRUE)) |> 
     filter(Participant.Id == p) |>
     filter(!if_all(-1, is.na)) |> 
@@ -131,26 +131,26 @@ for(trt in c(
 }
 }
 
-hds_pthx_new <- df_empty
+hds_systhist_new <- df_empty
 rm(df_empty)
 
 # set extreme dates (indicating missings) to NA
-hds_pthx_new <- hds_pthx_new |> mutate(
+hds_systhist_new <- hds_systhist_new |> mutate(
   startdate = as.Date(startdate, format = "%Y-%m-%d"),
   enddate = as.Date(enddate, format = "%d-%m-%Y"),
 )
 
-w1 <- which(hds_pthx_new$startdate > as.Date("2900-01-01"))
-w2 <- which(hds_pthx_new$enddate > as.Date("2900-01-01"))
+w1 <- which(hds_systhist_new$startdate > as.Date("2900-01-01"))
+w2 <- which(hds_systhist_new$enddate > as.Date("2900-01-01"))
 if(length(w1)!=0) {
-  hds_pthx_new[w, ]$startdate <- NA
+  hds_systhist_new[w, ]$startdate <- NA
 }
 if(length(w2)!=0) {
-  hds_pthx_new[w, ]$enddate <- NA
+  hds_systhist_new[w, ]$enddate <- NA
 }
 
 # HDS - treatment ---------------------------------------------------------
-hds_pthx_new <- hds_pthx_new |> mutate(
+hds_systhist_new <- hds_systhist_new |> mutate(
   treatment = case_when(
     treatment == "ciclo" ~ 1,
     treatment == "aza" ~ 3,
@@ -189,7 +189,7 @@ hds_pthx_new <- hds_pthx_new |> mutate(
 # 5=Disease remission
 # 9=Other
 
-hds_pthx_new <- hds_pthx_new |> mutate(
+hds_systhist_new <- hds_systhist_new |> mutate(
   treatment = as.integer(treatment),
   startdate = as.character(startdate),
   enddate = as.character(enddate),
@@ -208,7 +208,7 @@ hds_pthx_new <- hds_pthx_new |> mutate(
 # note: different stopreason options than for current systemic therapy
 
 # save HDS ----------------------------------------------------------------
-write.csv(hds_pthx_new,
+write.csv(hds_systhist_new,
           paste0("../data/", export_date, "/hds/without-proms-data/hds.systemictherapyhx.csv"),
           row.names = FALSE
 )

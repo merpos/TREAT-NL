@@ -90,6 +90,6 @@ hds_pt <- hds_pt |>
 
 # save HDS ----------------------------------------------------------------
 write.csv(hds_pt,
-          paste0("../data/", export_date, "/hds/without-proms-data/hds.phototherapy.csv"),
+          paste0("../data/", export_date, "/hds/hds.phototherapy.csv"),
           row.names = FALSE
 )

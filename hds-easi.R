@@ -36,6 +36,6 @@ hds_easi <-hds_easi |>
 
 # save HDS ----------------------------------------------------------------
 write.csv(hds_easi,
-          paste0("../data/", export_date, "/hds/without-proms-data/hds.easi.csv"),
+          paste0("../data/", export_date, "/hds/hds.easi.csv"),
           row.names = FALSE
 )

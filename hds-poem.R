@@ -78,6 +78,6 @@ hds_poem <- hds_poem |>
 
 # save HDS ----------------------------------------------------------------
 write.csv(hds_poem,
-          paste0("../data/", export_date, "/hds/without-proms-data/hds.poem.csv"),
+          paste0("../data/", export_date, "/hds/hds.poem.csv"),
           row.names = FALSE
 )

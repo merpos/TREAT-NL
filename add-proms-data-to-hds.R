@@ -11,7 +11,7 @@ cat("--------------- add PROMS data ---------------\n")
 df <- read.csv(paste0("../data/prosexcelall.csv"), sep = "," ) 
 
 # DLQI --------------------------------------------------------------------
-hds_dlqi <- read.csv(file = paste0("../data/", export_date, "/hds/without-proms-data/hds.dlqi.csv"))
+hds_dlqi <- read.csv(file = paste0("../data/", export_date, "/hds/hds.dlqi.csv"))
 
 df2 <- df |> 
   filter(questionnaire == "CDLQI" | questionnaire == "DLQI" ) |> 
@@ -32,12 +32,12 @@ hds_dlqi_new <- hds_dlqi |>
 
 rm(df2)
 write.csv(hds_dlqi_new,
-          paste0("../data/", export_date, "/hds/with-proms-data/hds.dlqi.csv"),
+          paste0("../data/", export_date, "/hds/hds.dlqi.csv"),
           row.names = FALSE
 )
 
 # NRS ---------------------------------------------------------------------
-hds_nrs <- read.csv(file = paste0("../data/", export_date, "/hds/without-proms-data/hds.nrs.csv"))
+hds_nrs <- read.csv(file = paste0("../data/", export_date, "/hds/hds.nrs.csv"))
 
 df2 <- df |> 
   filter(questionnaire == "NRS.24h.pruritis") |> 
@@ -55,13 +55,13 @@ hds_nrs_new <- hds_nrs |>
 
 rm(df2)
 write.csv(hds_nrs_new,
-          paste0("../data/", export_date, "/hds/with-proms-data/hds.nrs.csv"),
+          paste0("../data/", export_date, "/hds/hds.nrs.csv"),
           row.names = FALSE
 )
 
 
 # POEM --------------------------------------------------------------------
-hds_poem <- read.csv(file = paste0("../data/", export_date, "/hds/without-proms-data/hds.poem.csv"))
+hds_poem <- read.csv(file = paste0("../data/", export_date, "/hds/hds.poem.csv"))
 
 df2 <- df |> 
   filter(questionnaire == "POEM") |> 
@@ -84,6 +84,6 @@ hds_poem_new <- hds_poem |>
 
 rm(df2)
 write.csv(hds_poem_new,
-          paste0("../data/", export_date, "/hds/with-proms-data/hds.poem.csv"),
+          paste0("../data/", export_date, "/hds/hds.poem.csv"),
           row.names = FALSE
 )

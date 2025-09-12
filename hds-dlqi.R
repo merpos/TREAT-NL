@@ -61,6 +61,6 @@ hds_dlqi <- hds_dlqi |>
 
 # save HDS ----------------------------------------------------------------
 write.csv(hds_dlqi,
-          paste0("../data/", export_date, "/hds/without-proms-data/hds.dlqi.csv"),
+          paste0("../data/", export_date, "/hds/hds.dlqi.csv"),
           row.names = FALSE
 )

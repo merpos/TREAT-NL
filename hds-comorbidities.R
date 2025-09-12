@@ -85,6 +85,6 @@ hds_comorb <- hds_comorb |>
 
 # save HDS ----------------------------------------------------------------
 write.csv(hds_comorb,
-          paste0("../data/", export_date, "/hds/without-proms-data/hds.comorbidities.csv"),
+          paste0("../data/", export_date, "/hds/hds.comorbidities.csv"),
           row.names = FALSE
 )

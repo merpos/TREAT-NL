@@ -99,7 +99,7 @@ hds_syst <- hds_syst |> rename(treatment = syst_ther_type) |>
 # set all to main (see e-mail Bola)
 hds_syst <- hds_syst |> mutate(mainad = 1)
 
-# # question Elizaveta; derive overview of most common combinations of therapies.
+# derive overview of most common combinations of therapies.
 # str(hds_syst)
 # test <- hds_syst |> select(c(anonymisedID, treatment, startdate, enddate, visitdate))
 # subset(test, anonymisedID == "AUMCC18")
@@ -191,55 +191,6 @@ for(v in c("concomitant", "stopreason")) {
           TRUE ~ 7
         )
       )
-    
-    # Constraint: NL register allows multiple answers for therapy discontinuation.
-    # Append multiple answers using comma (but this does not harmonize).
-    # df_merged_sub <- df_merged_sub |>
-    #   rowwise() |>
-    #   mutate(
-    #     stopreason = paste0(c(
-    #       if (isTRUE(fu_therapy_discontinuation_reason.Adverse.event.s. == 1) |
-    #           isTRUE(swi_w4_therapy_discontinuation_reason.Adverse.event.s. == 1) |
-    #           isTRUE(swi_therapy_discontinuation_reason.Adverse.event.s. == 1) |
-    #           isTRUE(w4_therapy_discontinuation_reason.Adverse.event.s. == 1)) 1 else NULL,
-    #       
-    #       if (isTRUE(fu_therapy_discontinuation_reason.Efficacy == 1) |
-    #           isTRUE(swi_w4_therapy_discontinuation_reason.Efficacy == 1) |
-    #           isTRUE(swi_therapy_discontinuation_reason.Efficacy == 1) |
-    #           isTRUE(w4_therapy_discontinuation_reason.Efficacy == 1)) 2 else NULL,
-    #       
-    #       if (isTRUE(fu_therapy_discontinuation_reason.Inefficacy == 1) |
-    #           isTRUE(swi_w4_therapy_discontinuation_reason.Inefficacy == 1) |
-    #           isTRUE(swi_therapy_discontinuation_reason.Inefficacy == 1) |
-    #           isTRUE(w4_therapy_discontinuation_reason.Inefficacy == 1)) 3 else NULL,
-    #       
-    #       if (isTRUE(fu_therapy_discontinuation_reason.Interaction.with.other.medication == 1) |
-    #           isTRUE(swi_w4_therapy_discontinuation_reason.Interaction.with.other.medication == 1) |
-    #           isTRUE(swi_therapy_discontinuation_reason.Interaction.with.other.medication == 1) |
-    #           isTRUE(w4_therapy_discontinuation_reason.Interaction.with.other.medication == 1)) 6 else NULL,
-    #       
-    #       if (isTRUE(fu_therapy_discontinuation_reason.Child.wish == 1) |
-    #           isTRUE(swi_w4_therapy_discontinuation_reason.Child.wish == 1) |
-    #           isTRUE(swi_therapy_discontinuation_reason.Child.wish == 1) |
-    #           isTRUE(w4_therapy_discontinuation_reason.Child.wish == 1)) 6 else NULL,
-    #       
-    #       if (isTRUE(fu_therapy_discontinuation_reason.Patient.request == 1) |
-    #           isTRUE(swi_w4_therapy_discontinuation_reason.Patient.request == 1) |
-    #           isTRUE(swi_therapy_discontinuation_reason.Patient.request == 1) |
-    #           isTRUE(w4_therapy_discontinuation_reason.Patient.request == 1)) 6 else NULL,
-    #       
-    #       if (isTRUE(fu_therapy_discontinuation_reason.Other == 1) |
-    #           isTRUE(swi_w4_therapy_discontinuation_reason.Other == 1) |
-    #           isTRUE(swi_therapy_discontinuation_reason.Other == 1) |
-    #           isTRUE(w4_therapy_discontinuation_reason.Other == 1)) 6 else NULL,
-    #       
-    #       if (isTRUE(fu_therapy_discontinuation_reason.Not.applicable == 1) |
-    #           isTRUE(swi_w4_therapy_discontinuation_reason.Not.applicable == 1) |
-    #           isTRUE(swi_therapy_discontinuation_reason.Not.applicable == 1) |
-    #           isTRUE(w4_therapy_discontinuation_reason.Not.applicable == 1)) NA else NULL
-    #     ), collapse = ",")
-    #   ) |>
-    #   ungroup()
   }
 }
   
@@ -324,7 +275,7 @@ hds_syst <- hds_syst |>
     treatment == 2 ~ 1*7, # aza
     treatment == 3 ~ 1,   # meth
     treatment == 4 ~ 1*7, # myco
-    treatment == 5 ~ 1*7, # other conv syst -->> WHAT FREQUENCY SHOULD BE USED HERE? daily OK?
+    treatment == 5 ~ 1*7, # other conv syst
     treatment == 6 ~ NA,  # dupi, current dosage leading
     treatment == 7 ~ NA,  # nemo, not collected
     treatment == 8 ~ NA,  # lebri, current dosage leading
@@ -336,7 +287,7 @@ hds_syst <- hds_syst |>
     treatment == 14 ~ 1*7, # bari
     treatment == 15 ~ 1*7, # upa,
     treatment == 16 ~ NA,  # other jak, not collected
-    treatment == 98 ~ NA, # other syst -->> WHAT FREQUENCY SHOULD BE USED HERE? 
+    treatment == 98 ~ NA, # other syst 
     treatment == 99 ~ NA, # unknown
   ))
 
@@ -369,8 +320,6 @@ hds_syst <- hds_syst |>
     )
   )
 
-# hds_syst |> filter(!is.na(frequency_other)) |> pull(frequency_other)
-# hds_syst |> filter(!is.na(dosage_other)) |> pull(dosage_other)
 # TO DO MAYBE LATER: 
 # WRITE CODE TO ALSO INCLUDE FREQUENCY OTHER / DOSAGE OTHER IN THE MAIN COLUMNS.
 
@@ -441,6 +390,6 @@ hds_syst <- hds_syst |>
 
 # save HDS ----------------------------------------------------------------
 write.csv(hds_syst,
-          paste0("../data/", export_date, "/hds/without-proms-data/hds.systemictherapy.csv"),
+          paste0("../data/", export_date, "/hds/hds.systemictherapy.csv"),
           row.names = FALSE
 )

@@ -57,6 +57,7 @@ source("hds-easi.R", echo=FALSE)
 
 # depends on all scripts above (and should be run as last!)
 source("add-proms-data-to-hds.R", echo=FALSE) 
+source("filter-for-treatment.R", echo=FALSE) 
 
 cat("------------------ session info -----------------------")
 sessionInfo()

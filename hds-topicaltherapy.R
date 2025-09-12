@@ -154,6 +154,6 @@ hds_top <- hds_top |>
 
 # save HDS ----------------------------------------------------------------
 write.csv(hds_top,
-          paste0("../data/", export_date, "/hds/without-proms-data/hds.topicaltherapy.csv"),
+          paste0("../data/", export_date, "/hds/hds.topicaltherapy.csv"),
           row.names = FALSE
 )

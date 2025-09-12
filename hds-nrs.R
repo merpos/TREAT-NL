@@ -78,6 +78,6 @@ hds_nrs <- hds_nrs |>
 
 # save HDS ----------------------------------------------------------------
 write.csv(hds_nrs,
-          paste0("../data/", export_date, "/hds/without-proms-data/hds.nrs.csv"),
+          paste0("../data/", export_date, "/hds/hds.nrs.csv"),
           row.names = FALSE
 )
