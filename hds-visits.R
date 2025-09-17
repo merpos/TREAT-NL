@@ -78,6 +78,6 @@ hds_visit_final <- hds_visit |> select(c(Participant.Id, visitdate)) |>
 
 # save HDS ----------------------------------------------------------------
 write.csv(hds_visit_final,
-  paste0("../data/", export_date, "/hds/without-proms-data/hds.visits.csv"),
+  paste0("../data/", export_date, "/hds/hds.visits.csv"),
   row.names = FALSE
 )

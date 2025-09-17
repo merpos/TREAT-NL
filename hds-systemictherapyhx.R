@@ -209,6 +209,6 @@ hds_systhist_new <- hds_systhist_new |> mutate(
 
 # save HDS ----------------------------------------------------------------
 write.csv(hds_systhist_new,
-          paste0("../data/", export_date, "/hds/without-proms-data/hds.systemictherapyhx.csv"),
+          paste0("../data/", export_date, "/hds/hds.systemictherapyhx.csv"),
           row.names = FALSE
 )

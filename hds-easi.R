@@ -32,7 +32,8 @@ hds_easi <-hds_easi |>
   distinct() |> 
   mutate(easiscore = case_when( easiscore < 0 ~NA,
                           TRUE ~ easiscore)) |> 
-  rename(anonymisedID = Participant.Id)
+  rename(anonymisedID = Participant.Id,
+         easi = easiscore)
 
 # save HDS ----------------------------------------------------------------
 write.csv(hds_easi,
