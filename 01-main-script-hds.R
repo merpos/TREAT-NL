@@ -7,7 +7,7 @@
 ## ============================================================================
 
 # to be changed accordingly -----------------------------------------------
-export_date <- "20250911"
+export_date <- "20250926"
 export_date_full <- paste(c(substring(export_date, 1,4),
                             substring(export_date, 5,6),
                             substring(export_date, 7,8)), collapse="-", sep="")

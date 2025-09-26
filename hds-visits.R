@@ -76,6 +76,22 @@ if(length(w)!=0){
 hds_visit_final <- hds_visit |> select(c(Participant.Id, visitdate)) |> 
   rename(anonymisedID = Participant.Id) |> distinct()
 
+
+# error handling inf dates ------------------------------------------------
+# to prevent error for Inf dates in the ADS, add participants that are in 
+# ids2include but not in visit data
+
+if(length(table(ids2include %in% hds_visit_final$anonymisedID)["FALSE"]) !=0){
+  
+  ids2add <- ids2include[!ids2include %in% hds_visit_final$anonymisedID]
+  hds_visit_final_ids2add <- hds_visit_final[1:2,]
+  hds_visit_final_ids2add$anonymisedID <- ids2add
+  hds_visit_final_ids2add$visitdate <- NA
+  
+  hds_visit_final <- hds_visit_final |>  bind_rows(hds_visit_final_ids2add)
+}
+
+
 # save HDS ----------------------------------------------------------------
 write.csv(hds_visit_final,
   paste0("../data/", export_date, "/hds/hds.visits.csv"),
