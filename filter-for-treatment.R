@@ -33,17 +33,29 @@ cat("--------------- filter for systemic therapy ---------------\n")
 
 # systemic therapy --------------------------------------------------------
 hds_syst <- read.csv(file = paste0("../data/", export_date, "/hds/hds.systemictherapy.csv"))
-hds_syst_new <- hds_syst |> filter(treatment == 1 | treatment == 2 | treatment == 13)
+
+ids2extract <- hds_syst |> 
+  filter(treatment == 1 | treatment == 2 | treatment == 13) |> 
+  pull(anonymisedID)
+
+hds_syst_new <- hds_syst |> filter(anonymisedID %in% ids2extract)
 
 write.csv(hds_syst_new,
           paste0("../data/", export_date, "/hds/hds.systemictherapy.csv"),
           row.names = FALSE
 )
 
+rm(ids2extract)
+
 # systemic therapy history ------------------------------------------------
 
 hds_sth <- read.csv(file = paste0("../data/", export_date, "/hds/hds.systemictherapyhx.csv"))
-hds_sth_new <- hds_sth |> filter(treatment == 1 | treatment == 2 | treatment == 13)
+
+ids2extract <- hds_sth |> 
+  filter(treatment == 1 | treatment == 2 | treatment == 13) |> 
+  pull(anonymisedID)
+
+hds_sth_new <- hds_sth |> filter(anonymisedID %in% ids2extract)
 
 write.csv(hds_sth_new,
           paste0("../data/", export_date, "/hds/hds.systemictherapyhx.csv"),
