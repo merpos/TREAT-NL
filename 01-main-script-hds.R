@@ -7,13 +7,17 @@
 ## ============================================================================
 
 # to be changed accordingly -----------------------------------------------
-export_date <- "20250926"
+export_date <- "20251017"
 export_date_full <- paste(c(substring(export_date, 1,4),
                             substring(export_date, 5,6),
                             substring(export_date, 7,8)), collapse="-", sep="")
+config <- read.delim("config.txt")
+
 my_lib_path <-
   paste0(
-    "C:/Users/P076169/Amsterdam UMC/MyRPackages/",
+    "C:/Users/",
+    config$Pnumber,
+    "/Amsterdam UMC/MyRPackages/",
     paste0(version$major, ".", version$minor),
     "/"
   )

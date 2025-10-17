@@ -15,7 +15,13 @@ df <- read.csv(paste0("../data/", export_date, "/castor-export/TREAT_NL_register
   )
 
 df_merged <- full_join(hds_visit, df, join_by(Participant.Id), relationship = "many-to-many") |>
-  filter(!is.na(enrolment_date)) 
+  filter(!is.na(enrolment_date)) |> 
+  # since there are more ids in the hds_visit than in the treatment df, 
+  # only keep those ids that are in treatment df
+  # this is to prevent missings for treatment startdate 
+  # (gives error in ADS conversion code 3.1)
+  filter(Participant.Id %in% df$Participant.Id)
+
 
 # HDS - startdate and enddate ---------------------------------------------
 hds_syst <- df_merged |>
@@ -89,7 +95,7 @@ hds_syst <- hds_syst |> rename(treatment = syst_ther_type) |>
       treatment == 12 ~ 8,
       treatment == 99 ~ 98,
       treatment == 999 ~ 98,
-      treatment == is.na(treatment) ~ 99,
+      is.na(treatment) ~ 99,
       TRUE ~ treatment
     )
   )

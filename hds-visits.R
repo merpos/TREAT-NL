@@ -84,7 +84,7 @@ hds_visit_final <- hds_visit |> select(c(Participant.Id, visitdate)) |>
 if(length(table(ids2include %in% hds_visit_final$anonymisedID)["FALSE"]) !=0){
   
   ids2add <- ids2include[!ids2include %in% hds_visit_final$anonymisedID]
-  hds_visit_final_ids2add <- hds_visit_final[1:2,]
+  hds_visit_final_ids2add <- hds_visit_final[1:length(ids2add),]
   hds_visit_final_ids2add$anonymisedID <- ids2add
   hds_visit_final_ids2add$visitdate <- NA
   
